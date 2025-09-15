@@ -3,16 +3,21 @@ package controller;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TextField;
+import javafx.scene.control.cell.PropertyValueFactory;
 import model.CustomerModel;
 
 import javafx.event.ActionEvent;
 
-public class CustomerManagementController {
+import java.net.URL;
+import java.util.ResourceBundle;
+
+public class CustomerManagementController implements Initializable {
 
     ObservableList<CustomerModel> customerModels = FXCollections.observableArrayList();
 
@@ -85,7 +90,17 @@ public class CustomerManagementController {
     @FXML
     void btnAddOnAction(ActionEvent event) {
         String customerId = txtCustomerId.getText();
-        String
+        String customerTitle = checkGender();
+        String customerName = txtCustomerName.getText();
+        String dob = dobField.getAccessibleHelp();
+        double salary = Double.parseDouble(txtSalary.getText());
+        String customerAddress = txtCustomerAddress.getText();
+        String city = txtCustomerCity.getText();
+        String province = txtCustomerProvince.getText();
+        String postalCode = txtCustomerPostalCode.getText();
+
+        CustomerController customerController = new CustomerController();
+        customerController.addCustomerDetails(customerId,customerTitle,customerName,dob,salary,customerAddress,city,province,postalCode);
 
     }
 
@@ -100,9 +115,24 @@ public class CustomerManagementController {
     }
 
     private String checkGender(){
-        if(rdbFemaleTitle.isSelected()){
+        if(rdbMaleTitle.isSelected()){
             return "Male";
+        } else if (rdbFemaleTitle.isSelected()) {
+            return "Female";
         }
-        return "Female";
+        else {
+            return "";
+        }
+    }
+
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+        tblCustId.setCellValueFactory(new PropertyValueFactory<>("CustID"));
+        tblCustTitle.setCellValueFactory(new PropertyValueFactory<>("CustTitle"));
+        tblCustName.setCellValueFactory(new PropertyValueFactory<>("CustName"));
+        tblCustDOB.setCellValueFactory(new PropertyValueFactory<>("DOB"));
+        tblCustSalary.setCellValueFactory(new PropertyValueFactory<>("CustAddress"));
+        tblCustCity.setCellValueFactory(new PropertyValueFactory<>("City"));
+        tblCustProvince.setCellValueFactory(new PropertyValueFactory<>("PostalCode"));
     }
 }
