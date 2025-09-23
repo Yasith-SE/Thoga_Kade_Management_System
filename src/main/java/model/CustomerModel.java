@@ -18,4 +18,6 @@ public class CustomerModel {
     private String city;
     private String province;
     private String postalCode;
+
+
 }

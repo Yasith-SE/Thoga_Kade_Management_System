@@ -15,6 +15,8 @@ import javafx.event.ActionEvent;
 public class CustomerManagementController {
 
     ObservableList<CustomerModel> customerModels = FXCollections.observableArrayList();
+    CustomerControllerService controllerService = new CustomerController();
+
 
     @FXML
     private Button btnCustomerAdd;
