@@ -3,16 +3,17 @@ package controller;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-import javafx.scene.control.DatePicker;
-import javafx.scene.control.RadioButton;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TextField;
+import javafx.fxml.Initializable;
+import javafx.scene.control.*;
+import javafx.scene.control.cell.PropertyValueFactory;
 import model.CustomerModel;
 
 import javafx.event.ActionEvent;
 
-public class CustomerManagementController {
+import java.net.URL;
+import java.util.ResourceBundle;
+
+public class CustomerManagementController implements Initializable {
 
     ObservableList<CustomerModel> customerModels = FXCollections.observableArrayList();
     CustomerControllerService controllerService = new CustomerController();
@@ -103,8 +104,27 @@ public class CustomerManagementController {
 
     private String checkGender(){
         if(rdbFemaleTitle.isSelected()){
-            return "Male";
-        }
-        return "Female";
+            return "Mr";
+        }else{return "Mrs";}
+    }
+
+
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+
+
+        ToggleGroup titleToggleGroup = new ToggleGroup();
+        rdbMaleTitle.setToggleGroup(titleToggleGroup);
+        rdbFemaleTitle.setToggleGroup(titleToggleGroup);
+
+        tblCustId.setCellValueFactory(new PropertyValueFactory<>("CustID"));
+        tblCustTitle.setCellValueFactory(new PropertyValueFactory<>("CustTitle"));
+        tblCustName.setCellValueFactory(new PropertyValueFactory<>("CustName"));
+        tblCustDOB.setCellValueFactory(new PropertyValueFactory<>("DOB"));
+        tblCustSalary.setCellValueFactory(new PropertyValueFactory<>("salary"));
+        tblCustAdress.setCellValueFactory(new PropertyValueFactory<>("CustAddress"));
+        tblCustCity.setCellValueFactory(new PropertyValueFactory<>("City"));
+        tblCustProvince.setCellValueFactory(new PropertyValueFactory<>("Province"));
+        tblCustPostalCode.setCellValueFactory(new PropertyValueFactory<>("PostalCode"));
     }
 }
