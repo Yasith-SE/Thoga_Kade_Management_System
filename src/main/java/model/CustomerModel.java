@@ -1,13 +1,16 @@
 package model;
 
+import javafx.beans.property.ObjectProperty;
+import javafx.scene.control.DateCell;
+import javafx.scene.control.DatePicker;
+import javafx.util.Callback;
 import lombok.*;
 
-@ToString
-@NoArgsConstructor
-@Setter
 @Getter
+@Setter
+@NoArgsConstructor
 @AllArgsConstructor
-
+@ToString
 public class CustomerModel {
     private String idCustomer;
     private String genderCustomer;
@@ -20,4 +23,9 @@ public class CustomerModel {
     private String postalCode;
 
 
+
 }
+
+
+
+

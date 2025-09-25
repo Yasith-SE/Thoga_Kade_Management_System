@@ -87,8 +87,18 @@ public class CustomerManagementController implements Initializable {
 
     @FXML
     void btnAddOnAction(ActionEvent event) {
-        String customerId = txtCustomerId.getText();
+        CustomerModel custModel = new CustomerModel(
+                txtCustomerId.getText(),
+                checkGender(),
+                txtCustomerName.getText(),
+                dobField.dayCellFactoryProperty(),
+                Double.parseDouble(txtSalary.getText()),
+                txtCustomerAddress.getText(),
+                txtCustomerCity.getText(),
+                txtCustomerProvince.getText(),
+                txtCustomerPostalCode.getText()
 
+        );
 
     }
 
@@ -108,10 +118,8 @@ public class CustomerManagementController implements Initializable {
         }else{return "Mrs";}
     }
 
-
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-
 
         ToggleGroup titleToggleGroup = new ToggleGroup();
         rdbMaleTitle.setToggleGroup(titleToggleGroup);
@@ -126,5 +134,13 @@ public class CustomerManagementController implements Initializable {
         tblCustCity.setCellValueFactory(new PropertyValueFactory<>("City"));
         tblCustProvince.setCellValueFactory(new PropertyValueFactory<>("Province"));
         tblCustPostalCode.setCellValueFactory(new PropertyValueFactory<>("PostalCode"));
+
+        loadDetails();
+    }
+
+    private void loadDetails(){
+        customerModels = controllerService.getAllCustomerDetails();
+
+
     }
 }
