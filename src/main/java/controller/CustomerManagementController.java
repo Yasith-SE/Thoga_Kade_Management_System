@@ -91,7 +91,7 @@ public class CustomerManagementController implements Initializable {
                 txtCustomerId.getText(),
                 checkGender(),
                 txtCustomerName.getText(),
-                dobField.dayCellFactoryProperty(),
+                dobField.getAccessibleText(),
                 Double.parseDouble(txtSalary.getText()),
                 txtCustomerAddress.getText(),
                 txtCustomerCity.getText(),
@@ -99,7 +99,8 @@ public class CustomerManagementController implements Initializable {
                 txtCustomerPostalCode.getText()
 
         );
-
+        controllerService.addCustomerDetails(custModel);
+        loadDetails();
     }
 
     @FXML

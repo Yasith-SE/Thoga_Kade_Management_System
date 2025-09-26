@@ -38,4 +38,12 @@ public class CustomerController implements CustomerControllerService {
 
         }
 
+    public ObservableList<CustomerModel>getAllCustomerDetails(){
+
+    }
+
+
+
+    }
+
 }
