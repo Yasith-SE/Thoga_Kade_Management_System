@@ -1,4 +1,4 @@
-package controller;
+package controller.customerController;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -36,6 +36,9 @@ public class CustomerManagementController implements Initializable {
 
     @FXML
     private RadioButton rdbMaleTitle;
+
+    @FXML
+    private TableView<CustomerModel> tblCustomerDetails;
 
     @FXML
     private TableColumn<?, ?> tblCustAdress;
@@ -91,7 +94,7 @@ public class CustomerManagementController implements Initializable {
                 txtCustomerId.getText(),
                 checkGender(),
                 txtCustomerName.getText(),
-                dobField.getAccessibleText(),
+                dobField.getAccessibleHelp(),
                 Double.parseDouble(txtSalary.getText()),
                 txtCustomerAddress.getText(),
                 txtCustomerCity.getText(),
@@ -126,22 +129,22 @@ public class CustomerManagementController implements Initializable {
         rdbMaleTitle.setToggleGroup(titleToggleGroup);
         rdbFemaleTitle.setToggleGroup(titleToggleGroup);
 
-        tblCustId.setCellValueFactory(new PropertyValueFactory<>("CustID"));
-        tblCustTitle.setCellValueFactory(new PropertyValueFactory<>("CustTitle"));
-        tblCustName.setCellValueFactory(new PropertyValueFactory<>("CustName"));
-        tblCustDOB.setCellValueFactory(new PropertyValueFactory<>("DOB"));
+        tblCustId.setCellValueFactory(new PropertyValueFactory<>("idCustomer"));
+        tblCustTitle.setCellValueFactory(new PropertyValueFactory<>("genderCustomer"));
+        tblCustName.setCellValueFactory(new PropertyValueFactory<>("nameCustomer"));
+        tblCustDOB.setCellValueFactory(new PropertyValueFactory<>("dateChooser"));
         tblCustSalary.setCellValueFactory(new PropertyValueFactory<>("salary"));
-        tblCustAdress.setCellValueFactory(new PropertyValueFactory<>("CustAddress"));
-        tblCustCity.setCellValueFactory(new PropertyValueFactory<>("City"));
-        tblCustProvince.setCellValueFactory(new PropertyValueFactory<>("Province"));
-        tblCustPostalCode.setCellValueFactory(new PropertyValueFactory<>("PostalCode"));
+        tblCustAdress.setCellValueFactory(new PropertyValueFactory<>("customerAddress"));
+        tblCustCity.setCellValueFactory(new PropertyValueFactory<>("city"));
+        tblCustProvince.setCellValueFactory(new PropertyValueFactory<>("province"));
+        tblCustPostalCode.setCellValueFactory(new PropertyValueFactory<>("postalCode"));
 
         loadDetails();
     }
 
     private void loadDetails(){
         customerModels = controllerService.getAllCustomerDetails();
-
+        tblCustomerDetails.setItems(customerModels);
 
     }
 }

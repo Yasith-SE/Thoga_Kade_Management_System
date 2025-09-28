@@ -1,24 +1,22 @@
-package controller;
+package controller.customerController;
 
 import db.DBConnection;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import model.CustomerModel;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
+import java.sql.*;
 
 public class CustomerController implements CustomerControllerService {
         ObservableList <CustomerModel> customerModels = FXCollections.observableArrayList();
 
         public void addCustomerDetails(CustomerModel customerModel){
-            String SQL = "INSERT INTO customer(CustID,CustTitle,CustName,DOB,salary,CustAddress,City,Province,PostalCode)VALUES( ?,?,?,?,?,?,?,?,?))";
+            String SQL = "INSERT INTO customer Values( ?,?,?,?,?,?,?,?,?)";
 
             try {
                 Connection connection = DBConnection.getInstance().getConnection();
                 PreparedStatement preparedStatement = connection.prepareStatement(SQL);
+
                 preparedStatement.setObject(1,customerModel.getIdCustomer());
                 preparedStatement.setObject(2,customerModel.getGenderCustomer());
                 preparedStatement.setObject(3,customerModel.getNameCustomer());
@@ -38,12 +36,37 @@ public class CustomerController implements CustomerControllerService {
 
         }
 
-    public ObservableList<CustomerModel>getAllCustomerDetails(){
+        public ObservableList<CustomerModel>getAllCustomerDetails(){
+            ObservableList<CustomerModel>custModelConnect=FXCollections.observableArrayList();
+            String SQL = "SELECT * from customer";
+            Connection con = null;
+            try {
+                con = DBConnection.getInstance().getConnection();
+                PreparedStatement preStat = con.prepareStatement(SQL);
+                ResultSet reSet = preStat.executeQuery();
+                while (reSet.next()){
+                    customerModels.add(new CustomerModel(
+                            reSet.getString("CustID"),
+                            reSet.getString("CustTitle"),
+                            reSet.getString("CustName"),
+                            reSet.getString("DOB"),
+                            reSet.getDouble("salary"),
+                            reSet.getString("CustAddress"),
+                            reSet.getString("City"),
+                            reSet.getString("Province"),
+                            reSet.getString("PostalCode")
+
+                            ));
+
+                }
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            }
+            return customerModels;
+        }
+
+
 
     }
 
 
-
-    }
-
-}

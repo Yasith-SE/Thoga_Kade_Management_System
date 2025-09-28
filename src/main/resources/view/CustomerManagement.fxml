@@ -13,7 +13,7 @@
 <?import javafx.scene.paint.Stop?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="691.0" prefWidth="1276.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.CustomerManagementController">
+<AnchorPane prefHeight="691.0" prefWidth="1276.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.customerController.CustomerManagementController">
    <children>
       <Label layoutX="907.0" layoutY="32.0" text="Customer Management">
          <font>
@@ -128,7 +128,7 @@
             </LinearGradient>
          </textFill>
       </Button>
-      <TableView layoutX="458.0" layoutY="128.0" prefHeight="470.0" prefWidth="769.0">
+      <TableView fx:id="tblCustomerDetails" layoutX="458.0" layoutY="128.0" prefHeight="470.0" prefWidth="769.0">
         <columns>
           <TableColumn fx:id="tblCustId" prefWidth="78.0" text="Customer Id" />
           <TableColumn fx:id="tblCustTitle" minWidth="0.0" prefWidth="107.0" text="Customer Title" />
