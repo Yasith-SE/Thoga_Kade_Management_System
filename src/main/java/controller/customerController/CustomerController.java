@@ -10,8 +10,9 @@ import java.sql.*;
 public class CustomerController implements CustomerControllerService {
         ObservableList <CustomerModel> customerModels = FXCollections.observableArrayList();
 
+        @Override
         public void addCustomerDetails(CustomerModel customerModel){
-            String SQL = "INSERT INTO customer Values( ?,?,?,?,?,?,?,?,?)";
+            String SQL = "INSERT INTO customer Values( ?,?,?,?,?,?,?,?,?);";
 
             try {
                 Connection connection = DBConnection.getInstance().getConnection();
@@ -35,10 +36,51 @@ public class CustomerController implements CustomerControllerService {
             }
 
         }
+        @Override
+        public void updateCustomer(CustomerModel customerUpdate) {
+            String SQL ="UPDATE customer SET CustTitle = ?, CustName = ?, DOB = ?, salary = ?, CustAddress = ?, City = ?, Province = ?, PostalCode = ? WHERE CustID = ?";
+
+            try {
+                Connection connection = DBConnection.getInstance().getConnection();
+                PreparedStatement preUpdateSte = connection.prepareStatement(SQL);
+
+                preUpdateSte.setObject(1,customerUpdate.getGenderCustomer());
+                preUpdateSte.setObject(2,customerUpdate.getNameCustomer());
+                preUpdateSte.setObject(3,customerUpdate.getDateChooser());
+                preUpdateSte.setObject(4,customerUpdate.getSalary());
+                preUpdateSte.setObject(5,customerUpdate.getCustomerAddress());
+                preUpdateSte.setObject(6,customerUpdate.getCity());
+                preUpdateSte.setObject(7,customerUpdate.getProvince());
+                preUpdateSte.setObject(8,customerUpdate.getPostalCode());
+                preUpdateSte.setObject(9,customerUpdate.getIdCustomer());
+
+                preUpdateSte.executeUpdate();
+
+
+
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            }
+
+        }
+        @Override
+        public void deleteCustomer(String customerDelete){
+            String SQL ="DELETE FROM customer WHERE CustID = ?;";
+            try {
+                Connection conDelete = DBConnection.getInstance().getConnection();
+                PreparedStatement preDeleteSte = conDelete.prepareStatement(SQL);
+                preDeleteSte.setObject(1,customerDelete);
+
+                preDeleteSte.executeUpdate();
+
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            }
+        }
 
         public ObservableList<CustomerModel>getAllCustomerDetails(){
             ObservableList<CustomerModel>custModelConnect=FXCollections.observableArrayList();
-            String SQL = "SELECT * from customer";
+            String SQL = "SELECT * from customer;";
             Connection con = null;
             try {
                 con = DBConnection.getInstance().getConnection();
